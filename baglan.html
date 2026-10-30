@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="kk" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Амалханұлы Бағлан | Portfolio & Resume</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: '#090d16',
+                        cardbg: 'rgba(15, 23, 42, 0.65)',
+                        neonCyan: '#06b6d4',
+                        neonPurple: '#a855f7',
+                        neonBlue: '#3b82f6'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Dark Glassmorphism & Neon Glow Effects -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #090d16;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        /* Dark Glassmorphism */
+        .glass-nav {
+            background: rgba(9, 13, 22, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(6, 182, 212, 0.4);
+            box-shadow: 0 12px 40px -10px rgba(6, 182, 212, 0.3);
+        }
+
+        /* Neon Text Gradient */
+        .neon-text {
+            background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .neon-bg {
+            background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #a855f7 100%);
+        }
+
+        /* Glowing Blobs Animation */
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(40px, -60px) scale(1.15); }
+            66% { transform: translate(-30px, 30px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+
+        .animate-blob {
+            animation: blob 10s infinite ease-in-out;
+        }
+
+        .animation-delay-2000 { animation-delay: 2.5s; }
+        .animation-delay-4000 { animation-delay: 5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-14px); }
+        }
+
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Fullscreen Starry Particle Canvas */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Reveal Section Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Neon Button Glow */
+        .neon-btn {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .neon-btn:hover {
+            box-shadow: 0 0 25px rgba(6, 182, 212, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-darkbg text-slate-100 transition-colors duration-300 relative selection:bg-cyan-500 selection:text-black">
+
+    <!-- Interactive Canvas Particles Background -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Glowing Background Blobs -->
+    <div class="fixed top-10 left-10 w-96 h-96 bg-cyan-600/15 rounded-full blur-[120px] animate-blob pointer-events-none"></div>
+    <div class="fixed top-1/2 right-10 w-96 h-96 bg-purple-600/15 rounded-full blur-[120px] animate-blob animation-delay-2000 pointer-events-none"></div>
+    <div class="fixed bottom-10 left-1/3 w-96 h-96 bg-blue-600/15 rounded-full blur-[120px] animate-blob animation-delay-4000 pointer-events-none"></div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo -->
+                <a href="#hero" class="flex items-center gap-3 group">
+                    <div class="w-11 h-11 rounded-xl neon-bg flex items-center justify-center text-black font-extrabold text-xl shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform">
+                        АБ
+                    </div>
+                    <span class="font-extrabold text-xl tracking-tight text-white">
+                        Бағлан<span class="neon-text">.com</span>
+                    </span>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-slate-300">
+                    <a href="#hero" class="hover:text-cyan-400 transition-colors" data-i18n="nav_home">Басты бет</a>
+                    <a href="#about" class="hover:text-cyan-400 transition-colors" data-i18n="nav_about">Мен туралы</a>
+                    <a href="#education" class="hover:text-cyan-400 transition-colors" data-i18n="nav_edu">Білім</a>
+                    <a href="#contact" class="hover:text-cyan-400 transition-colors" data-i18n="nav_contact">Байланыс</a>
+                </nav>
+
+                <!-- Language Selector Controls -->
+                <div class="flex items-center gap-3">
+                    <div class="bg-slate-900/80 p-1.5 rounded-xl border border-slate-800 flex items-center text-xs font-semibold">
+                        <button onclick="changeLanguage('kk')" id="lang-kk" class="px-3 py-1.5 rounded-lg transition-all text-black bg-cyan-400 shadow-sm font-bold">ҚАЗ</button>
+                        <button onclick="changeLanguage('ru')" id="lang-ru" class="px-3 py-1.5 rounded-lg transition-all text-slate-400 hover:text-cyan-400">РУС</button>
+                        <button onclick="changeLanguage('en')" id="lang-en" class="px-3 py-1.5 rounded-lg transition-all text-slate-400 hover:text-cyan-400">ENG</button>
+                    </div>
+
+                    <!-- Mobile Menu Hamburger -->
+                    <button id="mobile-menu-btn" aria-label="Open Menu" class="md:hidden w-11 h-11 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-center text-slate-200">
+                        <i class="fas fa-bars text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass-nav border-t border-slate-800 px-4 pt-3 pb-6 space-y-3">
+            <a href="#hero" class="block py-2 text-base font-medium text-slate-300 hover:text-cyan-400" data-i18n="nav_home" onclick="toggleMobileMenu()">Басты бет</a>
+            <a href="#about" class="block py-2 text-base font-medium text-slate-300 hover:text-cyan-400" data-i18n="nav_about" onclick="toggleMobileMenu()">Мен туралы</a>
+            <a href="#education" class="block py-2 text-base font-medium text-slate-300 hover:text-cyan-400" data-i18n="nav_edu" onclick="toggleMobileMenu()">Білім</a>
+            <a href="#contact" class="block py-2 text-base font-medium text-slate-300 hover:text-cyan-400" data-i18n="nav_contact" onclick="toggleMobileMenu()">Байланыс</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-[calc(100vh-80px)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Left Hero Info -->
+            <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 text-xs sm:text-sm font-semibold shadow-inner">
+                    <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></span>
+                    <span data-i18n="hero_status">1-Курс Студенті | Жұмабек Ахметұлы Ташенов Университеті</span>
+                </div>
+
+                <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight">
+                    <span data-i18n="hero_greeting">Сәлем, мен</span> <br>
+                    <span class="neon-text">Амалханұлы Бағлан</span>
+                </h1>
+
+                <!-- Dynamic Animated Typing Text -->
+                <div class="text-xl sm:text-2xl font-medium text-slate-300 h-10 flex items-center justify-center lg:justify-start">
+                    <span id="typing-text" class="border-r-2 border-cyan-400 pr-1 text-cyan-400"></span>
+                </div>
+
+                <p class="text-slate-400 text-base sm:text-lg max-w-2xl leading-relaxed mx-auto lg:mx-0" data-i18n="hero_desc">
+                    Жұмабек Ахметұлы Ташенов атындағы Университеттің белсенді 1-курс студентімін. Өз пәнімді, заманауи білімді терең меңгеріп, жеке біліктілігімді арттыруға белсенді ұмтыламын.
+                </p>
+
+                <!-- CTA Action Buttons -->
+                <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
+                    <a href="#contact" class="neon-btn neon-bg text-black font-extrabold px-8 py-4 rounded-xl shadow-lg shadow-cyan-500/25 hover:scale-105 transition-all flex items-center gap-2">
+                        <i class="fas fa-paper-plane"></i>
+                        <span data-i18n="hero_btn_contact">Хабарласу</span>
+                    </a>
+                    <a href="#about" class="glass-card hover:bg-slate-800/80 text-white font-semibold px-8 py-4 rounded-xl border border-slate-700 hover:scale-105 transition-all flex items-center gap-2">
+                        <i class="fas fa-user text-cyan-400"></i>
+                        <span data-i18n="hero_btn_about">Мен Туралы Толығырақ</span>
+                    </a>
+                </div>
+
+                <!-- Social Links -->
+                <div class="flex items-center justify-center lg:justify-start gap-4 pt-6 text-xl text-slate-400">
+                    <a href="https://github.com" target="_blank" aria-label="GitHub" class="w-11 h-11 rounded-xl glass-card flex items-center justify-center hover:text-cyan-400 hover:border-cyan-500/50 hover:scale-110 transition-all"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn" class="w-11 h-11 rounded-xl glass-card flex items-center justify-center hover:text-cyan-400 hover:border-cyan-500/50 hover:scale-110 transition-all"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://t.me/baga_car_games_bot" target="_blank" aria-label="Telegram" class="w-11 h-11 rounded-xl glass-card flex items-center justify-center hover:text-cyan-400 hover:border-cyan-500/50 hover:scale-110 transition-all"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="https://instagram.com/amalkhanov_/" target="_blank" aria-label="Instagram" class="w-11 h-11 rounded-xl glass-card flex items-center justify-center hover:text-cyan-400 hover:border-cyan-500/50 hover:scale-110 transition-all"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <!-- Right Profile Avatar Illustration Card -->
+            <div class="lg:col-span-5 flex justify-center">
+                <div class="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96">
+                    <div class="absolute inset-0 rounded-3xl neon-bg blur-2xl opacity-20 animate-pulse"></div>
+                    
+                    <div class="relative w-full h-full rounded-3xl glass-card p-4 border border-slate-700/80 flex flex-col items-center justify-center overflow-hidden animate-float">
+                        <!-- Student Portrait -->
+                        <img src="C:\Users\Lenovo\Pictures\бага.jpeg" alt="Бағлан Амалханұлы" class="w-full h-full object-cover rounded-2xl filter brightness-95 opacity-90 hover:opacity-100 transition-opacity">
+                        
+                        <!-- Floating Badge -->
+                        <div class="absolute bottom-6 right-6 glass-card px-4 py-2.5 rounded-xl border border-cyan-500/30 shadow-2xl flex items-center gap-3">
+                            <i class="fas fa-university text-cyan-400 text-xl"></i>
+                            <div>
+                                <div class="text-[10px] uppercase font-bold text-slate-400" data-i18n="badge_subtitle">Университет студенті</div>
+                                <div class="text-xs font-extrabold text-white" data-i18n="badge_uni">Амалханұлы Бағлан</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="py-24 px-4 sm:px-6 lg:px-8 reveal">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-extrabold neon-text mb-4" data-i18n="about_title">Мен Туралы</h2>
+                <div class="w-20 h-1 neon-bg mx-auto rounded-full mb-4 shadow-sm shadow-cyan-500"></div>
+                <p class="text-slate-400" data-i18n="about_subtitle">Бiлiмге қызыққан, болашақ білікті маман</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Personal Narrative Card -->
+                <div class="lg:col-span-7 glass-card p-8 rounded-3xl space-y-6">
+                    <h3 class="text-2xl font-bold text-white" data-i18n="about_heading">Ж.А. Ташенов Университетінің 1-Курс Студенті</h3>
+                    <p class="text-slate-300 leading-relaxed" data-i18n="about_text">
+                        Сәлем! Мен Амалханұлы Бағланмын. Қазіргі таңда Жұмабек Ахметұлы Ташенов атындағы Университетте 1-курста білім алудамын. Мен әрдайым жаңа білім алуға, өзімді дамытуға және жан-жақты болуға ұмтыламын.
+                    </p>
+
+                    <!-- Info Grid Details -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                        <div class="flex items-center gap-3 p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                            <i class="fas fa-user-graduate text-cyan-400 text-xl"></i>
+                            <div>
+                                <span class="text-xs text-slate-500 block" data-i18n="info_status">Мәртебесі</span>
+                                <span class="text-sm font-semibold text-slate-200" data-i18n="info_status_val">1-курс Студенті</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                            <i class="fas fa-university text-purple-400 text-xl"></i>
+                            <div>
+                                <span class="text-xs text-slate-500 block" data-i18n="info_uni">Оқу орны</span>
+                                <span class="text-sm font-semibold text-slate-200" data-i18n="info_uni_val">Ж.А. Ташенов Университеті</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                            <i class="fas fa-envelope text-blue-400 text-xl"></i>
+                            <div>
+                                <span class="text-xs text-slate-500 block" data-i18n="info_email">Email</span>
+                                <span class="text-sm font-semibold text-slate-200">baglan.amalhanuly@gmail.com</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                            <i class="fas fa-globe text-emerald-400 text-xl"></i>
+                            <div>
+                                <span class="text-xs text-slate-500 block" data-i18n="info_langs">Факультет</span>
+                                <span class="text-sm font-semibold text-slate-200" data-i18n="info_langs_val">Жасанды интеллект</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Highlight Stat Cards -->
+                <div class="lg:col-span-5 grid grid-cols-2 gap-4">
+                    <div class="glass-card p-6 rounded-2xl text-center space-y-2 border border-slate-800">
+                        <div class="text-4xl font-extrabold neon-text counter" data-target="1">0</div>
+                        <div class="text-sm font-medium text-slate-400" data-i18n="stat_course">Оқу Курсы</div>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl text-center space-y-2 border border-slate-800">
+                        <div class="text-4xl font-extrabold neon-text counter" data-target="100">0</div>
+                        <div class="text-sm font-medium text-slate-400" data-i18n="stat_motivation">% Ынта мен Ықылас</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+   
+    <!-- Education Section -->
+    <section id="education" class="py-24 px-4 sm:px-6 lg:px-8 bg-slate-950/40 reveal">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-extrabold neon-text mb-4" data-i18n="edu_title">Білім Жолы</h2>
+                <div class="w-20 h-1 neon-bg mx-auto rounded-full mb-4 shadow-sm shadow-cyan-500"></div>
+                <p class="text-slate-400" data-i18n="edu_subtitle">Жоғарғы оқу орны мен оқу процесім</p>
+            </div>
+
+            <div class="max-w-4xl mx-auto space-y-8">
+                <!-- Main University Card -->
+                <div class="glass-card p-8 rounded-3xl border-l-8 border-cyan-400 relative overflow-hidden space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <span class="inline-block px-3.5 py-1 rounded-full bg-cyan-950/80 border border-cyan-500/30 text-cyan-400 text-xs font-bold mb-2" data-i18n="uni_date">2026 - Қазіргі уақыт</span>
+                            <h3 class="text-2xl sm:text-3xl font-extrabold text-white" data-i18n="uni_name">Жұмабек Ахметұлы Ташенов Университеті</h3>
+                            <p class="text-sm text-cyan-400 font-semibold" data-i18n="edu_degree">Бакалавриат - 1 курс студенті</p>
+                        </div>
+                        <div class="w-14 h-14 rounded-2xl neon-bg flex items-center justify-center text-black text-2xl shadow-lg shadow-cyan-500/20 shrink-0">
+                            <i class="fas fa-university"></i>
+                        </div>
+                    </div>
+                    
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed" data-i18n="edu_desc">
+                        Университет қабырғасында сапалы білім алып, академиялық пәндерді, теориялық және практикалық білімді белсенді меңгеріп жатырмын. Университеттің қоғамдық және ғылыми шараларына қатысуға дайынмын.
+                    </p>
+                </div>
+
+                <!-- Mukagali Makatayev School Card -->
+                <div class="glass-card p-8 rounded-3xl border-l-8 border-purple-500 relative overflow-hidden space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <span class="inline-block px-3.5 py-1 rounded-full bg-purple-950/80 border border-purple-500/30 text-purple-400 text-xs font-bold mb-2" data-i18n="school_period">Мектеп кезеңі</span>
+                            <h3 class="text-2xl sm:text-3xl font-extrabold text-white" data-i18n="school_name">№38 Мұқағали Мақатаев атындағы мектеп</h3>
+                            <p class="text-sm text-purple-400 font-semibold" data-i18n="school_badge">Орта білім мен алғашқы жетістіктер</p>
+                        </div>
+                        <div class="w-14 h-14 rounded-2xl bg-purple-600 flex items-center justify-center text-white text-2xl shadow-lg shadow-purple-500/20 shrink-0">
+                            <i class="fas fa-school"></i>
+                        </div>
+                    </div>
+                    
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed" data-i18n="school_desc">
+                        №38 Мұқағали Мақатаев атындағы мектеп қабырғасында білім алып, ұлы ақынның рухымен сусындадым. Мектеп жылдарында белсенділік танытып, түрлі пәндік сайыстар мен шығармашылық байқауларға қатысу арқылы жан-жақты дамып, болашаққа берік негіз қаладым.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 px-4 sm:px-6 lg:px-8 reveal">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-extrabold neon-text mb-4" data-i18n="contact_title">Байланысу</h2>
+                <div class="w-20 h-1 neon-bg mx-auto rounded-full mb-4 shadow-sm shadow-cyan-500"></div>
+                <p class="text-slate-400" data-i18n="contact_subtitle">Ұсынысыңыз немесе сұрағыңыз болса хабарласыңыз!</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Contact Direct Cards -->
+                <div class="lg:col-span-5 space-y-4">
+                    <div class="glass-card p-6 rounded-2xl flex items-center justify-between border border-slate-800">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-cyan-950/80 text-cyan-400 border border-cyan-500/30 flex items-center justify-center text-xl"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <span class="text-xs text-slate-500 block">Email</span>
+                                <span class="text-sm font-bold text-white">amalkhanulybaglan@gmail.com</span>
+                            </div>
+                        </div>
+                        <button onclick="copyToClipboard('amalkhanulybaglan@gmail.com')" aria-label="Copy Email" class="text-xs glass-card px-3.5 py-2 rounded-lg hover:bg-cyan-500 hover:text-black transition-all"><i class="fas fa-copy"></i></button>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl flex items-center justify-between border border-slate-800">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-950/80 text-emerald-400 border border-emerald-500/30 flex items-center justify-center text-xl"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <span class="text-xs text-slate-500 block" data-i18n="info_phone">Телефон</span>
+                                <span class="text-sm font-bold text-white">+7 (700) 214-7709</span>
+                            </div>
+                        </div>
+                        <button onclick="copyToClipboard('+77002147709')" aria-label="Copy Phone" class="text-xs glass-card px-3.5 py-2 rounded-lg hover:bg-cyan-500 hover:text-black transition-all"><i class="fas fa-copy"></i></button>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl flex items-center justify-between border border-slate-800">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-purple-950/80 text-purple-400 border border-purple-500/30 flex items-center justify-center text-xl"><i class="fas fa-university"></i></div>
+                            <div>
+                                <span class="text-xs text-slate-500 block" data-i18n="info_uni">Оқу орны</span>
+                                <span class="text-sm font-bold text-white" data-i18n="info_uni_val">Ж.А. Ташенов Университеті</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <a href="https://tashenov.edu.kz" target="_blank" rel="noopener noreferrer" aria-label="University Website" class="text-xs glass-card px-3.5 py-2 rounded-lg hover:bg-cyan-500 hover:text-black transition-all flex items-center gap-1.5 font-bold"><span class="hidden sm:inline" data-i18n="visit_site">Сайтқа өту</span> <i class="fas fa-external-link-alt"></i></a>
+                            <a href="https://2gis.kz/shymkent/firm/70000001075029767/69.599828%2C42.324609?m=69.600237%2C42.32358%2F17.14" aria-label="University Map" class="text-xs glass-card px-3.5 py-2 rounded-lg hover:bg-purple-500 hover:text-black transition-all flex items-center gap-1.5 font-bold"><span class="hidden sm:inline" data-i18n="map_btn">Карта</span> <i class="fas fa-map-marker-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Message Form -->
+                <div class="lg:col-span-7 glass-card p-8 rounded-3xl border border-slate-800">
+                    <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="space-y-1">
+                                <label class="text-xs font-semibold text-slate-400" data-i18n="form_name">Аты-жөніңіз</label>
+                                <input type="text" required placeholder="Аты-жөніңізді жазыңыз" class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 focus:outline-none focus:border-cyan-400 text-slate-200 text-sm">
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-xs font-semibold text-slate-400" data-i18n="form_email">Email Поштаңыз</label>
+                                <input type="email" required placeholder="example@mail.com" class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 focus:outline-none focus:border-cyan-400 text-slate-200 text-sm">
+                            </div>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-semibold text-slate-400" data-i18n="form_msg">Хабарламаңыз</label>
+                            <textarea rows="4" required placeholder="Хабарламаңызды осы жерге жазыңыз..." class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 focus:outline-none focus:border-cyan-400 text-slate-200 text-sm"></textarea>
+                        </div>
+                        <button type="submit" class="w-full neon-btn neon-bg text-black font-extrabold py-4 rounded-xl shadow-lg shadow-cyan-500/20 hover:scale-[1.01] transition-all flex items-center justify-center gap-2">
+                            <i class="fas fa-paper-plane"></i>
+                            <span data-i18n="form_btn">Хабарлама Жіберу</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="glass-nav py-8 px-4 text-center border-t border-slate-800">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-400">
+            <div>
+                ©️ <span id="year"></span> Амалханұлы Бағлан. <span data-i18n="footer_rights">Барлық құқықтар қорғалған.</span>
+            </div>
+            <div class="flex gap-4">
+                <a href="#hero" class="hover:text-cyan-400 transition-colors" data-i18n="nav_top">Үстіге оралу ↑</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification Box -->
+    <div id="toast" class="fixed bottom-5 right-5 glass-card border border-cyan-500/40 px-5 py-3 rounded-xl shadow-2xl transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3 z-50">
+        <i class="fas fa-check-circle text-cyan-400 text-lg"></i>
+        <span id="toast-message" class="text-sm font-medium text-white" data-i18n="toast_msg">Мәтін көшірілді!</span>
+    </div>
+
+    <!-- JS Logic & Translations -->
+    <script>
+        // Multi-Language Dictionary
+        const translations = {
+            kk: {
+                nav_home: "Басты бет",
+                nav_about: "Мен туралы",
+                nav_edu: "Білім",
+                nav_contact: "Байланыс",
+                nav_top: "Үстіге оралу ↑",
+                hero_status: "1-Курс Студенті | Жұмабек Ахметұлы Ташенов Университеті",
+                hero_greeting: "Сәлем, мен",
+                hero_desc: "Жұмабек Ахметұлы Ташенов атындағы Университеттің белсенді 1-курс студентімін. Өз пәнімді, заманауи білімді терең меңгеріп, жеке біліктілігімді арттыруға белсенді ұмтыламын.",
+                hero_btn_contact: "Хабарласу",
+                hero_btn_about: "Мен Туралы Толығырақ",
+                badge_subtitle: "Университет студенті",
+                badge_uni: "Амалханұлы Бағлан",
+                about_title: "Мен Туралы",
+                about_subtitle: "Бiлiмге қызыққан, болашақ білікті маман",
+                about_heading: "Ж.А. Ташенов Университетінің 1-Курс Студенті",
+                about_text: "Сәлем! Мен Амалханұлы Бағланмын. Қазіргі таңда Жұмабек Ахметұлы Ташенов атындағы Университетте 1-курста білім алудамын. Мен әрдайым жаңа білім алуға, өзімді дамытуға және жан-жақты болуға ұмтыламын.",
+                info_status: "Мәртебесі",
+                info_status_val: "1-курс Студенті",
+                info_uni: "Оқу орны",
+                info_uni_val: "Ж.А. Ташенов Университеті",
+                info_email: "Email",
+                info_phone: "Телефон",
+                info_langs: "Факультет",
+                info_langs_val: "Жасанды интеллект",
+                stat_course: "Оқу Курсы",
+                stat_motivation: "% Ынта мен Ықылас",
+                edu_title: "Білім Жолы",
+                edu_subtitle: "Жоғарғы оқу орны мен оқу процесім",
+                uni_date: "2026 - Қазіргі уақыт",
+                uni_name: "Жұмабек Ахметұлы Ташенов Университеті",
+                edu_degree: "Бакалавриат - 1 курс студенті",
+                edu_desc: "Университет қабырғасында сапалы білім алып, академиялық пәндерді, теориялық және практикалық білімді белсенді меңгеріп жатырмын. Университеттің қоғамдық және ғылыми шараларына қатысуға дайынмын.",
+                school_period: "Мектеп кезеңі",
+                school_name: "№38 Мұқағали Мақатаев атындағы мектеп",
+                school_badge: "Орта білім мен алғашқы жетістіктер",
+                school_desc: "№38 Мұқағали Мақатаев атындағы мектеп қабырғасында білім алып, ұлы ақынның рухымен сусындадым. Мектеп жылдарында белсенділік танытып, түрлі пәндік сайыстар мен шығармашылық байқауларға қатысу арқылы жан-жақты дамып, болашаққа берік негіз қаладым.",
+                visit_site: "Сайтқа өту",
+                map_btn: "Карта",
+                contact_title: "Байланысу",
+                contact_subtitle: "Ұсынысыңыз немесе сұрағыңыз болса хабарласыңыз!",
+                form_name: "Аты-жөніңіз",
+                form_email: "Email Поштаңыз",
+                form_msg: "Хабарламаңыз",
+                form_btn: "Хабарлама Жіберу",
+                footer_rights: "Барлық құқықтар қорғалған.",
+                toast_msg: "Мәтін көшірілді!",
+                typing_roles: ["Университет Студенті", "1-курс студенті", "Ж.А. Ташенов Университеті"]
+            },
+            ru: {
+                nav_home: "Главная",
+                nav_about: "О себе",
+                nav_edu: "Образование",
+                nav_contact: "Контакты",
+                nav_top: "Наверх ↑",
+                hero_status: "Студент 1-курса | Университет им. Жумабека Ахметулы Ташенова",
+                hero_greeting: "Привет, я",
+                hero_desc: "Активный студент 1-курса Университета имени Жумабека Ахметулы Ташенова. Стремлюсь получать качественные знания и активно развиваться.",
+                hero_btn_contact: "Связаться",
+                hero_btn_about: "Подробнее обо мне",
+                badge_subtitle: "Студент ВУЗа",
+                badge_uni: "Амалханулы Баглан",
+                about_title: "Обо Мне",
+                about_subtitle: "Студент, стремящийся к знаниям и развитию",
+                about_heading: "Студент 1-Курса Университета им. Ж.А. Ташенова",
+                about_text: "Привет! Меня зовут Амалханұлы Бағлан. В настоящее время я учусь на 1-курсе Университета имени Жумабека Ахметулы Ташенова. Всегда стремлюсь учиться новому и развивать свои навыки.",
+                info_status: "Статус",
+                info_status_val: "Студент 1-курса",
+                info_uni: "ВУЗ",
+                info_uni_val: "Университет им. Ж.А. Ташенова",
+                info_email: "Email",
+                info_phone: "Телефон",
+                info_langs: "Факультет",
+                info_langs_val: "Искусственный интеллект",
+                stat_course: "Курс Обучения",
+                stat_motivation: "% Мотивация",
+                edu_title: "Образование",
+                edu_subtitle: "Мой учебный процесс в университете",
+                uni_date: "2026 - Настоящее время",
+                uni_name: "Университет Жумабека Ахметулы Ташенова",
+                edu_degree: "Бакалавриат - Студент 1 курса",
+                edu_desc: "В стенах университета получаю качественное образование, активно осваивая академические дисциплины, теоретические и практические знания.",
+                school_period: "Школьный период",
+                school_name: "Школа-лицей №38 им. Мукагали Макатаева",
+                school_badge: "Среднее образование и первые достижения",
+                school_desc: "Учился в школе №38 имени Мукагали Макатаева, где получил прочные знания и активно участвовал в олимпиадах и творческих конкурсах, заложив крепкую основу для будущего.",
+                visit_site: "Перейти",
+                map_btn: "Карта",
+                contact_title: "Контакты",
+                contact_subtitle: "Свяжитесь со мной по любым вопросам или предложениям!",
+                form_name: "Ваше Имя",
+                form_email: "Ваш Email",
+                form_msg: "Сообщение",
+                form_btn: "Отправить Сообщение",
+                footer_rights: "Все права защищены.",
+                toast_msg: "Текст скопирован!",
+                typing_roles: ["Студент Университета", "Студент 1-курса", "Университет им. Ж.А. Ташенова"]
+            },
+            en: {
+                nav_home: "Home",
+                nav_about: "About",
+                nav_edu: "Education",
+                nav_contact: "Contact",
+                nav_top: "Back to Top ↑",
+                hero_status: "1st Year Student | Zhumabek Akhmetuly Tashenov University",
+                hero_greeting: "Hello, I am",
+                hero_desc: "Active 1st-year student at Zhumabek Akhmetuly Tashenov University. Dedicated to gaining solid academic knowledge and continuous personal growth.",
+                hero_btn_contact: "Contact Me",
+                hero_btn_about: "More About Me",
+                badge_subtitle: "University Student",
+                badge_uni: "Amalhanuly Baglan",
+                about_title: "About Me",
+                about_subtitle: "Eager student driven by knowledge and growth",
+                about_heading: "1st Year Student at Zhumabek Akhmetuly Tashenov University",
+                about_text: "Hello! My name is Amalhanuly Baglan. I am currently a 1st-year undergraduate student at Zhumabek Akhmetuly Tashenov University. I am always open to learning new things and developing myself in all aspects.",
+                info_status: "Status",
+                info_status_val: "1st Year Student",
+                info_uni: "University",
+                info_uni_val: "Zh.A. Tashenov University",
+                info_email: "Email",
+                info_phone: "Phone",
+                info_langs: "Faculty",
+                info_langs_val: "Artificial Intelligence",
+                stat_course: "Academic Year",
+                stat_motivation: "% Motivation",
+                edu_title: "Education",
+                edu_subtitle: "My learning journey at the university",
+                uni_date: "2026 - Present",
+                uni_name: "Zhumabek Akhmetuly Tashenov University",
+                edu_degree: "Bachelor's Degree - 1st Year Student",
+                edu_desc: "At the university, I am receiving a quality education and actively mastering academic subjects, theoretical knowledge, and practical skills.",
+                school_period: "School Period",
+                school_name: "Mukagali Makatayev School №38",
+                school_badge: "Secondary education & early achievements",
+                school_desc: "Studied at Mukagali Makatayev School №38, where I gained solid knowledge, actively participated in academic competitions and creative events, building a strong foundation for the future.",
+                visit_site: "Visit site",
+                map_btn: "Map",
+                contact_title: "Get In Touch",
+                contact_subtitle: "Feel free to reach out for questions or feedback!",
+                form_name: "Your Name",
+                form_email: "Your Email",
+                form_msg: "Your Message",
+                form_btn: "Send Message",
+                footer_rights: "All rights reserved.",
+                toast_msg: "Text copied!",
+                typing_roles: ["University Student", "1st Year Student", "Zh.A. Tashenov University"]
+            }
+        };
+
+        let currentLang = 'kk';
+
+        // Change Language Switcher
+        function changeLanguage(lang) {
+            currentLang = lang;
+            
+            ['kk', 'ru', 'en'].forEach(l => {
+                const btn = document.getElementById(`lang-${l}`);
+                if (l === lang) {
+                    btn.className = "px-3 py-1.5 rounded-lg transition-all text-black bg-cyan-400 shadow-sm font-bold";
+                } else {
+                    btn.className = "px-3 py-1.5 rounded-lg transition-all text-slate-400 hover:text-cyan-400";
+                }
+            });
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+
+            initTypingEffect();
+        }
+
+        // Dynamic Animated Typing Text
+        let typingIndex = 0;
+        let roleIndex = 0;
+        let isDeleting = false;
+        let typingTimeout;
+
+        function initTypingEffect() {
+            clearTimeout(typingTimeout);
+            const typingElement = document.getElementById('typing-text');
+            const roles = translations[currentLang].typing_roles;
+            let currentText = roles[roleIndex];
+
+            if (isDeleting) {
+                typingElement.textContent = currentText.substring(0, typingIndex - 1);
+                typingIndex--;
+            } else {
+                typingElement.textContent = currentText.substring(0, typingIndex + 1);
+                typingIndex++;
+            }
+
+            let speed = isDeleting ? 40 : 90;
+
+            if (!isDeleting && typingIndex === currentText.length) {
+                speed = 2200;
+                isDeleting = true;
+            } else if (isDeleting && typingIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                speed = 400;
+            }
+
+            typingTimeout = setTimeout(initTypingEffect, speed);
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
+
+        // Stats Counter Animation
+        function startCounters() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                let count = 0;
+                const speed = Math.max(1, target / 25);
+
+                const updateCount = () => {
+                    count += speed;
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count);
+                        setTimeout(updateCount, 50);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                updateCount();
+            });
+        }
+
+        // Intersection Observer for Reveal Animations
+        const observerOptions = { threshold: 0.15 };
+        let counted = false;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    if (entry.target.id === 'about' && !counted) {
+                        startCounters();
+                        counted = true;
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Clipboard Copy Helper
+        function copyToClipboard(text) {
+            const tempInput = document.createElement('input');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            const toast = document.getElementById('toast');
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Form Submit Handler
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const msg = currentLang === 'kk' ? 'Рахмет! Хабарламаңыз сәтті жіберілді.' : currentLang === 'ru' ? 'Спасибо! Ваше сообщение успешно отправлено.' : 'Thank you! Your message has been sent.';
+            alert(msg);
+            e.target.reset();
+        }
+
+        // Particle Canvas Background Loop (Glowing Stars)
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const particles = [];
+        for (let i = 0; i < 50; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 1.8 + 0.5,
+                dx: (Math.random() - 0.5) * 0.3,
+                dy: (Math.random() - 0.5) * 0.3,
+                opacity: Math.random() * 0.6 + 0.2
+            });
+        }
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(6, 182, 212, ${p.opacity})`;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = '#06b6d4';
+                ctx.fill();
+
+                p.x += p.dx;
+                p.y += p.dy;
+
+                if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+            });
+            requestAnimationFrame(animateCanvas);
+        }
+
+        // Page Init
+        window.onload = function () {
+            document.getElementById('year').textContent = new Date().getFullYear();
+            initTypingEffect();
+            animateCanvas();
+        };
+    </script>
+</body>
+</html>
